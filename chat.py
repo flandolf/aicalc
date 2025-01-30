@@ -18,10 +18,18 @@ def create_and_train_model():
                   loss='mean_squared_error')
     
     # Generate training data between 0-1 (model works best in this range)
-    X_train = np.random.random((10000, 2))
+    X_train = np.random.uniform(0, 100, (10000, 2))  # Generates values between 0 and 100
     y_train = X_train.sum(axis=1)
-    model.fit(X_train, y_train, epochs=10, verbose=0)
     
+    # Custom training loop to show progress
+    print(f"\n{Fore.YELLOW}Training the model...{Style.RESET_ALL}")
+    epochs = 100
+    for epoch in range(epochs):
+        history = model.fit(X_train, y_train, epochs=1, verbose=0)
+        loss = history.history['loss'][0]
+        print(f"{Fore.CYAN}Epoch {epoch + 1}/{epochs} - loss: {loss:.6f}{Style.RESET_ALL}")
+    
+    print(f"{Fore.GREEN}Training complete!{Style.RESET_ALL}")
     return model
 
 # Calculate confidence score (based on prediction error)
@@ -84,12 +92,7 @@ def main():
                 continue
                 
             num1, num2 = numbers
-            
-            # Validate input range
-            if not (0 <= num1 <= 1 and 0 <= num2 <= 1):
-                print(f"{Fore.RED}For best results, please use numbers between 0 and 1{Style.RESET_ALL}")
-                print(f"{Fore.YELLOW}The model was trained on 0-1 range but will try anyway...{Style.RESET_ALL}")
-                
+               
             # Make prediction
             input_array = np.array([[num1, num2]])
             prediction = model.predict(input_array, verbose=0)[0][0]
