@@ -17,7 +17,6 @@ def create_and_train_model():
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.1),
                   loss='mean_squared_error')
     
-    # Generate training data between 0-1 (model works best in this range)
     X_train = np.random.uniform(0, 100, (10000, 2))  # Generates values between 0 and 100
     y_train = X_train.sum(axis=1)
     
