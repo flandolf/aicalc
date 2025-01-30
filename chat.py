@@ -17,7 +17,7 @@ def create_and_train_model():
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.1),
                   loss='mean_squared_error')
     
-    X_train = np.random.uniform(0, 100, (10000, 2))  # Generates values between 0 and 100
+    X_train = np.random.rand(1000, 2)
     y_train = X_train.sum(axis=1)
     
     # Custom training loop to show progress
@@ -29,6 +29,7 @@ def create_and_train_model():
         print(f"{Fore.CYAN}Epoch {epoch + 1}/{epochs} - loss: {loss:.6f}{Style.RESET_ALL}")
     
     print(f"{Fore.GREEN}Training complete!{Style.RESET_ALL}")
+
     return model
 
 # Calculate confidence score (based on prediction error)
